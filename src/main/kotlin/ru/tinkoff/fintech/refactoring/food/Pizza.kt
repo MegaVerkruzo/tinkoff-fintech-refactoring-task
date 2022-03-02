@@ -1,4 +1,4 @@
-package ru.tinkoff.fintech.refactoring
+package ru.tinkoff.fintech.refactoring.food
 
 abstract class Pizza(val name: String, val ingredients: List<Pair<String, Int>>)
 

@@ -1,4 +1,9 @@
-package ru.tinkoff.fintech.refactoring
+package ru.tinkoff.fintech.refactoring.cuisine
+
+import ru.tinkoff.fintech.refactoring.Pizza
+import ru.tinkoff.fintech.refactoring.employee.Barista
+import ru.tinkoff.fintech.refactoring.employee.Employee
+import ru.tinkoff.fintech.refactoring.employee.PizzaMaker
 
 data class PizzaOrder(
     val number: Int,
@@ -6,14 +11,9 @@ data class PizzaOrder(
     val price: Double
 )
 
-data class CoffeeOrder(
-    val number: Int,
-    val pizza: Coffee,
-)
-
-class PizzaStore(private var orderNumber: Int = 0, private val pizzaMaker: Employee = PizzaMaker(), private val barista: Employee = Barista()) {
+class CuisinePizza(private var orderNumber: Int = 0, private val pizzaMaker: Employee = PizzaMaker(), private val barista: Employee = Barista()) {
     fun orderCoffee(name: String): CoffeeOrder {
-        val coffee = Coffee.getCoffeeByName(name)
+        val coffee = ru.tinkoff.fintech.refactoring.cuisine.Coffee.getCoffeeByName(name)
             ?: error("Неизвестный вид кофе!")
 
         return CoffeeOrder(
