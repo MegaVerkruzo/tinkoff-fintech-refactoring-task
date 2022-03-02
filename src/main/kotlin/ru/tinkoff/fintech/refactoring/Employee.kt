@@ -17,7 +17,7 @@ class Barista : Employee {
 
     override fun makeCoffee(orderId: Int, coffee: Coffee) {
         println("[Бариста] Готовлю напиток: ${coffee.name}")
-        println("[Бариста] Время приготовления: ${calculateCoffeeBrewTimeInMinutes(coffee)} минут")
+        println("[Бариста] Время приготовления: ${coffee.calculateCoffeeBrewTimeInMinutes()} минут")
         val roundedPrice = "%.2f".format(coffee.price)
         println("[Бариста] Стоимость напитка: $roundedPrice")
 

@@ -11,12 +11,7 @@ data class CoffeeOrder(
     val pizza: Coffee,
 )
 
-class PizzaStore {
-    var orderNumber = 0
-
-    private val pizzaMaker: Employee = PizzaMaker()
-    private val barista: Employee = Barista()
-
+class PizzaStore(private var orderNumber: Int = 0, private val pizzaMaker: Employee = PizzaMaker(), private val barista: Employee = Barista()) {
     fun orderCoffee(name: String): CoffeeOrder {
         val coffee = Coffee.getCoffeeByName(name)
             ?: error("Неизвестный вид кофе!")
@@ -70,3 +65,4 @@ class PizzaStore {
         }
     }
 }
+
