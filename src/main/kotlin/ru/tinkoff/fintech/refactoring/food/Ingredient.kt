@@ -1,6 +1,11 @@
 package ru.tinkoff.fintech.refactoring.food
 
-abstract class Ingredient(val name: String, val price: Double)
+abstract class Ingredient(override val name: String, private val price: Double = 0.0) : Food {
+    override fun getPrice(): Double {
+        return price
+    }
+
+}
 
 class Egg : Ingredient("яйцо", 3.48)
 class Bacon : Ingredient("бекон", 6.48)
@@ -13,5 +18,5 @@ class Mushrooms : Ingredient("грибы", 3.34)
 class Asparagus : Ingredient("спаржа", 3.34)
 class ColdCuts : Ingredient("мясное ассорти", 9.38)
 class BeefJerky : Ingredient("вяленая говядина", 12.24)
-class Salami: Ingredient("салями", 4.24)
-class Greenery: Ingredient("зелень", 0.67)
+class Salami : Ingredient("салями", 4.24)
+class Greenery : Ingredient("зелень", 0.67)

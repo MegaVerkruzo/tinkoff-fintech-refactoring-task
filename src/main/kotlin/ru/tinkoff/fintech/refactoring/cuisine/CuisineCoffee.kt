@@ -1,16 +1,13 @@
 package ru.tinkoff.fintech.refactoring.cuisine
 
-import ru.tinkoff.fintech.refactoring.Coffee
+import ru.tinkoff.fintech.refactoring.food.*
 
-
-data class CoffeeOrder(
-    val number: Int,
-    val coffee: Coffee,
-)
-
-
-class CoffeeStore() {
+class CuisineCoffee : CuisineFood(
+    arrayOf(
+        Espresso(),
+        Cappuccino()
+    )
+) {
 
 }
 
-class Coffee

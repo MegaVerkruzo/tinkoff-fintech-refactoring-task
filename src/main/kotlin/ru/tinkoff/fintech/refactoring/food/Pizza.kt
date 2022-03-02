@@ -1,13 +1,17 @@
 package ru.tinkoff.fintech.refactoring.food
 
-abstract class Pizza(val name: String, private val ingredients: List<Pair<Ingredient, Int>>, private var price: Double = 0.0) : Food {
+abstract class Pizza(
+    override val name: String,
+    private val ingredients: List<Pair<Ingredient, Int>>,
+    private var price: Double = 0.0
+) : Food {
     override fun getPrice(): Double {
         if (price == 0.0) {
             ingredients.forEach { ingredient ->
                 val ingredientType: Ingredient = ingredient.first
                 val count: Int = ingredient.second
 
-                price += count * ingredientType.price
+                price += count * ingredientType.getPrice()
             }
         }
         return price
