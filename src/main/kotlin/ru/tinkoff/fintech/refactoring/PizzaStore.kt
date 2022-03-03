@@ -1,14 +1,17 @@
 package ru.tinkoff.fintech.refactoring
 
-import ru.tinkoff.fintech.refactoring.cuisine.*
 import ru.tinkoff.fintech.refactoring.employee.*
 import ru.tinkoff.fintech.refactoring.food.CookedFood
+import ru.tinkoff.fintech.refactoring.food.FoodType
 
 class PizzaStore(
     private var orderNumber: Int = 0
 ) {
-    fun existsCookedFood(name: String): Boolean =
-
+    fun existsCookedFood(name: String): Boolean {
+        for (elem<T> in FoodType.values()) {
+            for (elem.)
+        }
+    }
 
     fun cookedFood(name: String): CookedFood? =
         cuisines.find { cuisine -> cuisine.existsCookedFood(name) }!!.cookedFood(name)
