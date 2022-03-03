@@ -9,7 +9,7 @@ data class FoodOrder(
     val ProcessedFood: ProcessedFood
 )
 
-class OrderQueue(
+class PizzaStore(
     private val employees: Array<Employee> = arrayOf(Barista(), PizzaMaker()),
     private var orderNumber: Int = 0,
     private val cuisines: Array<CuisineProcessedFood> = arrayOf(
