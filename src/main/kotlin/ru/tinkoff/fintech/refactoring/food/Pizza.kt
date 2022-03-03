@@ -7,11 +7,8 @@ open class Pizza(
     override var price: Double = 0.0
 ) : CookedFood {
     init {
-        ingredients.forEach { ingredient ->
-            val ingredientType: Ingredient = ingredient.first
-            val count: Int = ingredient.second
-
-            price += count * ingredientType.price
+        ingredients.forEach { (ingredient, count) ->
+            price += count * ingredient.price
         }
     }
 }
