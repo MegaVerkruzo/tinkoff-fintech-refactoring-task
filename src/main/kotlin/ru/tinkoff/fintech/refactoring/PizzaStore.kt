@@ -4,11 +4,6 @@ import ru.tinkoff.fintech.refactoring.cuisine.*
 import ru.tinkoff.fintech.refactoring.employee.*
 import ru.tinkoff.fintech.refactoring.food.ProcessedFood
 
-data class FoodOrder(
-    val number: Int,
-    val ProcessedFood: ProcessedFood
-)
-
 class PizzaStore(
     private val employees: Array<Employee> = arrayOf(Barista(), PizzaMaker()),
     private var orderNumber: Int = 0,
