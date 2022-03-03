@@ -13,12 +13,14 @@ class PizzaStore(
     ),
     private val orders: MutableMap<FoodOrder, Boolean> = mutableMapOf()
 ) {
-    fun existsCookedFood(name: String): CookedFood? =
+    fun existsCookedFood(name: String): Boolean =
+        cuisines.find { cuisine -> cuisine.existsCookedFood(name) } != null
+
+    fun cookedFood(name: String): CookedFood? =
         cuisines.find { cuisine -> cuisine.existsCookedFood(name) }!!.cookedFood(name)
 
-
     fun order(name: String): FoodOrder {
-        val cookedFoodType = existsCookedFood(name) ?: error("Неизвестный вид еды!")
+        val cookedFoodType = cookedFood(name) ?: error("Неизвестный вид еды!")
         val foodOrder = FoodOrder(++orderNumber, cookedFoodType)
         orders[foodOrder] = true
         return foodOrder
@@ -26,14 +28,10 @@ class PizzaStore(
 
     fun executeOrder(foodOrder: FoodOrder, employee: Employee): Boolean {
         if (orders[foodOrder] != null) {
-            employees.forEach { currentEmployee ->
-                if (currentEmployee.javaClass.kotlin == employee.javaClass.kotlin) {
-                    if (employee.make(foodOrder.number, foodOrder.cookedFood)) {
-                        orders.remove(foodOrder)
-                        return true
-                    }
-                    return false
-                }
+            if (employees.find { currentEmployee -> currentEmployee.javaClass.kotlin == employee.javaClass.kotlin
+                    && employee.make(foodOrder.number, foodOrder.cookedFood) } != null) {
+                orders.remove(foodOrder)
+                return true
             }
             error("Такого сотрудника нет")
         }
