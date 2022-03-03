@@ -1,14 +1,53 @@
 package ru.tinkoff.fintech.refactoring.food
 
-open class Pizza(
-    override val name: String,
-    override val ingredients: List<Pair<Ingredient, Int>>,
-    override val cookingTime: Int = 0,
-    override var price: Double = 0.0
+import ru.tinkoff.fintech.refactoring.food.Ingredient.*
+
+enum class Pizza(
+    override val title: String,
+    override val ingredients: Map<Ingredient, Int>,
+    override val cookingTime: Int = 0
 ) : CookedFood {
-    init {
-        ingredients.forEach { (ingredient, count) ->
-            price += count * ingredient.price
-        }
-    }
+    Carbonara(
+        "карбонара", mapOf(
+            Egg to 1,
+            Bacon to 2,
+            Dough to 1,
+            Cheese to 2
+        )
+    ),
+    Marinara(
+        "маринара", mapOf(
+            Tomato to 2,
+            Olives to 3,
+            Dough to 1
+        )
+    ),
+    Sardinia(
+        "сардиния", mapOf(
+            Salami to 3,
+            Olives to 1,
+            Dough to 1,
+            Cheese to 3
+        )
+    ),
+    Valtellina(
+        "вальтеллина", mapOf(
+            BeefJerky to 1,
+            Greenery to 1,
+            Dough to 1,
+            Parmesan to 2
+        )
+    ),
+    Peasant(
+        "крестьянская", mapOf(
+            Mushrooms to 3,
+            Tomato to 1,
+            Dough to 1,
+            Asparagus to 1,
+            ColdCuts to 1
+        )
+    );
+
+    override val price: Double
+        get() = ingredients.toList().sumOf { (ingredient, amount) -> ingredient.price * amount }
 }
