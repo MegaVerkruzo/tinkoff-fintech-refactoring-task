@@ -5,4 +5,4 @@ open class Coffee(
     override val cookingTime: Int,
     override val price: Double,
     override val ingredients: List<Pair<Ingredient, Int>> = listOf()
-) : ProcessedFood
+) : CookedFood

@@ -5,7 +5,7 @@ open class Pizza(
     override val ingredients: List<Pair<Ingredient, Int>>,
     override val cookingTime: Int = 0,
     override var price: Double = 0.0
-) : ProcessedFood {
+) : CookedFood {
     init {
         ingredients.forEach { ingredient ->
             val ingredientType: Ingredient = ingredient.first

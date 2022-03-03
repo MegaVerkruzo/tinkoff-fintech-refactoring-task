@@ -1,7 +1,7 @@
 package ru.tinkoff.fintech.refactoring.employee
 
 import ru.tinkoff.fintech.refactoring.food.Coffee
-import ru.tinkoff.fintech.refactoring.food.ProcessedFood
+import ru.tinkoff.fintech.refactoring.food.CookedFood
 
 class Barista : Employee {
     override fun cleanFloor(): Boolean {
@@ -9,11 +9,11 @@ class Barista : Employee {
         return false
     }
 
-    override fun make(orderId: Int, ProcessedFood: ProcessedFood): Boolean {
-        if (ProcessedFood is Coffee) {
-            println("[Бариста] Готовлю напиток: ${ProcessedFood.name}")
-            println("[Бариста] Время приготовления: ${ProcessedFood.cookingTime} минут")
-            val roundedPrice = "%.2f".format(ProcessedFood.price)
+    override fun make(orderId: Int, cookedFood: CookedFood): Boolean {
+        if (cookedFood is Coffee) {
+            println("[Бариста] Готовлю напиток: ${cookedFood.name}")
+            println("[Бариста] Время приготовления: ${cookedFood.cookingTime} минут")
+            val roundedPrice = "%.2f".format(cookedFood.price)
             println("[Бариста] Стоимость напитка: $roundedPrice")
 
             println("[Бариста] заказ $orderId готов")

@@ -1,8 +1,8 @@
 package ru.tinkoff.fintech.refactoring
 
-import ru.tinkoff.fintech.refactoring.food.ProcessedFood
+import ru.tinkoff.fintech.refactoring.food.CookedFood
 
 data class FoodOrder(
     val number: Int,
-    val ProcessedFood: ProcessedFood
+    val cookedFood: CookedFood
 )

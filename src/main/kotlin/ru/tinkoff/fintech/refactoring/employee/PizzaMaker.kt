@@ -1,6 +1,6 @@
 package ru.tinkoff.fintech.refactoring.employee
 
-import ru.tinkoff.fintech.refactoring.food.ProcessedFood
+import ru.tinkoff.fintech.refactoring.food.CookedFood
 import ru.tinkoff.fintech.refactoring.food.Pizza
 
 class PizzaMaker : Employee {
@@ -9,21 +9,19 @@ class PizzaMaker : Employee {
         return false
     }
 
-    override fun make(orderId: Int, ProcessedFood: ProcessedFood): Boolean {
-        if (ProcessedFood is Pizza) {
-            println("[Пицца мейкер] Делаю пиццу: ${ProcessedFood.name}")
+    override fun make(orderId: Int, cookedFood: CookedFood): Boolean {
+        if (cookedFood is Pizza) {
+            println("[Пицца мейкер] Делаю пиццу: ${cookedFood.name}")
             println("[Пицца мейкер] Из ингридиетов:")
-            var ingredientCounter = 0
-            ProcessedFood.ingredients.forEach {
-                val ingredient = it.first
-                val count = it.second
 
+            var ingredientCounter = 0
+            cookedFood.ingredients.forEach { (ingredient, count) ->
                 println("[Пицца мейкер] - ${ingredient.name}: в количестве $count за ${ingredient.price}$")
                 ingredientCounter += count
             }
 
             println("[Пицца мейкер] время приготовления $ingredientCounter минут")
-            val roundedPrice = "%.2f".format(ProcessedFood.price)
+            val roundedPrice = "%.2f".format(cookedFood.price)
             println("[Пицца мейкер] в сумме за все $roundedPrice$")
 
             println("[Пицца мейкер] заказ $orderId готов")
