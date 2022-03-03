@@ -1,12 +1,12 @@
 package ru.tinkoff.fintech.refactoring.cuisine
 
-import ru.tinkoff.fintech.refactoring.food.Food
+import ru.tinkoff.fintech.refactoring.food.ProcessedFood
 
-abstract class CuisineFood(private val foodTypes: Array<Food>) {
-    fun existsFood(name: String): Food? {
-        foodTypes.forEach { food ->
-            if (food.name == name) {
-                return food;
+abstract class CuisineProcessedFood(private val ProcessedFoodTypes: Array<ProcessedFood>) {
+    fun existsProcessedFood(name: String): ProcessedFood? {
+        ProcessedFoodTypes.forEach { ProcessedFood ->
+            if (ProcessedFood.name == name) {
+                return ProcessedFood;
             }
         }
         return null;

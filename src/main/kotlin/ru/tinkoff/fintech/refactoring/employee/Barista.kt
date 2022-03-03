@@ -1,23 +1,25 @@
 package ru.tinkoff.fintech.refactoring.employee
 
-import ru.tinkoff.fintech.refactoring.cuisine.Coffee
-import ru.tinkoff.fintech.refactoring.Pizza
+import ru.tinkoff.fintech.refactoring.food.Coffee
+import ru.tinkoff.fintech.refactoring.food.ProcessedFood
 
 class Barista : Employee {
-    override fun makePizza(orderId: Int, pizza: Pizza, ingredients: List<Pair<String, Int>>) {
-        println("[Бариста] Я не умею готовить пиццу")
-    }
-
-    override fun cleanFloor() {
+    override fun cleanFloor(): Boolean {
         println("[Бариста] Я не умею мыть полы")
+        return false
     }
 
-    override fun makeCoffee(orderId: Int, coffee: Coffee) {
-        println("[Бариста] Готовлю напиток: ${coffee.name}")
-        println("[Бариста] Время приготовления: ${coffee.calculateCoffeeBrewTimeInMinutes()} минут")
-        val roundedPrice = "%.2f".format(coffee.price)
-        println("[Бариста] Стоимость напитка: $roundedPrice")
+    override fun make(orderId: Int, ProcessedFood: ProcessedFood): Boolean {
+        if (ProcessedFood is Coffee) {
+            println("[Бариста] Готовлю напиток: ${ProcessedFood.name}")
+            println("[Бариста] Время приготовления: ${ProcessedFood.cookingTime} минут")
+            val roundedPrice = "%.2f".format(ProcessedFood.price)
+            println("[Бариста] Стоимость напитка: $roundedPrice")
 
-        println("[Бариста] заказ $orderId готов")
+            println("[Бариста] заказ $orderId готов")
+            return true
+        }
+        println("[Бариста] Я не умею готовить этот продукт")
+        return false
     }
 }

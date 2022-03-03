@@ -1,56 +1,55 @@
 package ru.tinkoff.fintech.refactoring
 
-import ru.tinkoff.fintech.refactoring.cuisine.CuisineCoffee
-import ru.tinkoff.fintech.refactoring.cuisine.CuisineFood
-import ru.tinkoff.fintech.refactoring.cuisine.CuisinePizza
-import ru.tinkoff.fintech.refactoring.employee.Employee
-import ru.tinkoff.fintech.refactoring.food.Food
-import ru.tinkoff.fintech.refactoring.food.Pizza
+import ru.tinkoff.fintech.refactoring.cuisine.*
+import ru.tinkoff.fintech.refactoring.employee.*
+import ru.tinkoff.fintech.refactoring.food.ProcessedFood
 
 data class FoodOrder(
     val number: Int,
-    val food: Food,
+    val ProcessedFood: ProcessedFood
 )
 
-class OrderQueue (
-    vararg employees: Employee,
+class OrderQueue(
+    private val employees: Array<Employee> = arrayOf(Barista(), PizzaMaker()),
     private var orderNumber: Int = 0,
-    private val cuisines: Array<CuisineFood> = arrayOf(
+    private val cuisines: Array<CuisineProcessedFood> = arrayOf(
         CuisineCoffee(),
-        CuisinePizza()
-    )
+        CuisinePizza(),
+    ),
+    private val orders: MutableMap<FoodOrder, Boolean> = mutableMapOf()
 ) {
-
-    fun existsFood(name: String): CuisineFood {
-        if ()
+    fun existsProcessedFood(name: String): ProcessedFood? {
+        cuisines.forEach { cuisine ->
+            val processedFood = cuisine.existsProcessedFood(name)
+            if (processedFood != null) {
+                return processedFood
+            }
+        }
+        return null
     }
 
     fun order(name: String): FoodOrder {
-        val typeOfCoffee = existsFood(name) ?: error("Неизвестный вид кофе!")
-        return FoodOrder()
+        val ProcessedFoodType = existsProcessedFood(name) ?: error("Неизвестный вид еды!")
+        val FoodOrder = FoodOrder(++orderNumber, ProcessedFoodType)
+        orders[FoodOrder] = true
+        return FoodOrder
     }
 
-//    fun executeOrder(pizzaOrder: PizzaOrder? = null, coffeeOrder: CoffeeOrder? = null) {
-//        if (pizzaOrder != null) {
-//            pizzaMaker.makePizza(pizzaOrder.number, pizzaOrder.pizza, getIngredient(pizzaOrder.pizza))
-//        }
-//
-//        if (coffeeOrder != null) {
-//            barista.makeCoffee(coffeeOrder.number, coffeeOrder.pizza)
-//        }
-//    }
-//
-//    fun orderPizza(name: String): PizzaOrder {
-//        val pizza = Pizza(name)
-//        val ingredients = getIngredient(pizza)
-//        var pizzaPrice = 0.0
-//
-//
-//        return PizzaOrder(
-//            number = ++orderNumber,
-//            pizza = pizza,
-//            price = pizzaPrice
-//        )
-//    }
-//}
+    fun executeOrder(foodOrder: FoodOrder, employee: Employee): Boolean {
+        if (orders[foodOrder] != null) {
+            employees.forEach { currentEmployee ->
+                if (currentEmployee.javaClass.kotlin == employee.javaClass.kotlin) {
+                    if (employee.make(foodOrder.number, foodOrder.ProcessedFood)) {
+                        orders.remove(foodOrder)
+                        return true
+                    }
+                    return false
+                }
+            }
+            error("Такого сотрудника нет")
+        }
+        error("Такого заказа нет в очереди")
+        return false
+    }
+}
 

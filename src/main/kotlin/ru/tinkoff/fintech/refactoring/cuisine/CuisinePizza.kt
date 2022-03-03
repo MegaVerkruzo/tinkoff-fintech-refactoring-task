@@ -1,8 +1,8 @@
 package ru.tinkoff.fintech.refactoring.cuisine
 
-import ru.tinkoff.fintech.refactoring.food.*
+import ru.tinkoff.fintech.refactoring.food.sets.*
 
-class CuisinePizza : CuisineFood(
+class CuisinePizza : CuisineProcessedFood(
     arrayOf(
         Carbonara(),
         Marinara(),
