@@ -7,6 +7,6 @@ enum class Coffee(
     override val ingredients: Map<Ingredient, Int> = mapOf()
 ) : CookedFood {
     Espresso("эспрессо", 5, 5.0),
-    Cappuccino("капучино", 6, 3.48)
+    Cappuccino("капучино", 6, 3.48);
 }
 
