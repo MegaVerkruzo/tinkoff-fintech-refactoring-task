@@ -1,65 +1,52 @@
 package ru.tinkoff.fintech.refactoring
 
 import ru.tinkoff.fintech.refactoring.employee.*
-import ru.tinkoff.fintech.refactoring.food.Coffee
 import ru.tinkoff.fintech.refactoring.food.SimpleFood
-import ru.tinkoff.fintech.refactoring.food.Pizza
 
-class PizzaStore {
+class PizzaStore(
+    private val employees: Set<Employee<SimpleFood>>,
+    private val foodTypes: Set<SimpleFood>
+) {
     private var orderNumber: Int = 0
     private val orders: MutableMap<FoodOrder<SimpleFood>, Boolean> = mutableMapOf()
 
-    private fun existsCoffee(name: String): Boolean =
-        Coffee.values().find { coffee -> coffee.title == name } != null
+//    private fun existsCoffee(name: String): Boolean =
+//        Coffee.values().find { coffee -> coffee.title == name } != null
+//
+//    private fun getCoffeeType(name: String): Coffee {
+//        if (existsCoffee(name)) {
+//            return Coffee.values().find { coffee -> coffee.title == name }!!
+//        }
+//        error("Нет такого кофе!")
+//    }
+//
+//    private fun existsPizza(name: String): Boolean =
+//        Pizza.values().find { pizza -> pizza.title == name } != null
+//
+//    private fun getPizzaType(name: String): Pizza {
+//        if (existsPizza(name)) {
+//            return Pizza.values().find { pizza -> pizza.title == name }!!
+//        }
+//        error("Нет такой пиццы!")
+//    }
 
-    private fun getCoffeeType(name: String): Coffee {
-        if (existsCoffee(name)) {
-            return Coffee.values().find { coffee -> coffee.title == name }!!
-        }
-        error("Нет такого кофе!")
-    }
-
-    private fun existsPizza(name: String): Boolean =
-        Pizza.values().find { pizza -> pizza.title == name } != null
-
-    private fun getPizzaType(name: String): Pizza {
-        if (existsPizza(name)) {
-            return Pizza.values().find { pizza -> pizza.title == name }!!
-        }
-        error("Нет такой пиццы!")
-    }
-
-    fun order(name: String): FoodOrder? {
-        val simpleFood: SimpleFood = if (existsPizza(name)) {
-            getPizzaType(name)
-        } else if (existsCoffee(name)) {
-            getCoffeeType(name)
-        } else {
-            error("Неизвестный вид еды!")
-        }
-        val foodOrder = FoodOrder(++orderNumber, simpleFood)
-        orders[foodOrder] = true
-        return foodOrder
-    }
-
-    fun executeOrder(foodOrder: FoodOrder?) {
-        if (foodOrder != null && orders[foodOrder] != null) {
-            var cooked = false
-            when (foodOrder.simpleFood) {
-                is Coffee -> {
-                    Barista().doWork(foodOrder.number, foodOrder.simpleFood)
-                    cooked = true
-                }
-                is Pizza -> {
-                    PizzaMaker().doWork(foodOrder.number, foodOrder.simpleFood)
-                    cooked = true
-                }
+    fun order(name: String): FoodOrder<SimpleFood> {
+        val food: SimpleFood? = foodTypes.find { it.title == name }
+        if (food != null) {
+            val order = FoodOrder(++orderNumber, food)
+            if (employees.find { it.canCook(order) } != null) {
+                orders[order] = true
+                return order
             }
-            if (cooked) {
-                orders.remove(foodOrder)
-                return
-            }
-            error("Сотрудника, который может приготовить такую еду - нет!")
+            error("Нет подходящего сотрудника для выполнения этой действия")
+        }
+        error("Неизвестный тип еды!")
+    }
+
+    fun executeOrder(order: FoodOrder<SimpleFood>) {
+        if (orders[order] == true) {
+            employees.find { it.canCook(order) }?.doWork(order)
+            orders[order] = false;
         }
         error("Такого заказа нет в очереди")
     }

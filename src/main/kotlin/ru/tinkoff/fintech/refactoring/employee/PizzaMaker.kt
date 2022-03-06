@@ -24,7 +24,7 @@ class PizzaMaker : Employee<Pizza> {
         println("[Пицца мейкер] заказ $orderId готов")
     }
 
-    override fun canProcess(order: FoodOrder<SimpleFood>): Boolean {
+    override fun canCook(order: FoodOrder<SimpleFood>): Boolean {
         return order.food is Pizza
     }
 }
