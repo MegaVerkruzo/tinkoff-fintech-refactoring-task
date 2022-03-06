@@ -7,22 +7,22 @@ import ru.tinkoff.fintech.refactoring.food.Pizza
 
 class PizzaStore {
     private var orderNumber: Int = 0
-    private val orders: MutableMap<FoodOrder, Boolean> = mutableMapOf()
+    private val orders: MutableMap<FoodOrder<SimpleFood>, Boolean> = mutableMapOf()
 
-    fun existsCoffee(name: String): Boolean =
+    private fun existsCoffee(name: String): Boolean =
         Coffee.values().find { coffee -> coffee.title == name } != null
 
-    fun coffee(name: String): Coffee {
+    private fun getCoffeeType(name: String): Coffee {
         if (existsCoffee(name)) {
             return Coffee.values().find { coffee -> coffee.title == name }!!
         }
         error("Нет такого кофе!")
     }
 
-    fun existsPizza(name: String): Boolean =
+    private fun existsPizza(name: String): Boolean =
         Pizza.values().find { pizza -> pizza.title == name } != null
 
-    fun pizza(name: String): Pizza {
+    private fun getPizzaType(name: String): Pizza {
         if (existsPizza(name)) {
             return Pizza.values().find { pizza -> pizza.title == name }!!
         }
@@ -31,9 +31,9 @@ class PizzaStore {
 
     fun order(name: String): FoodOrder? {
         val simpleFood: SimpleFood = if (existsPizza(name)) {
-            pizza(name)
+            getPizzaType(name)
         } else if (existsCoffee(name)) {
-            coffee(name)
+            getCoffeeType(name)
         } else {
             error("Неизвестный вид еды!")
         }
