@@ -45,12 +45,15 @@ class PizzaStore {
     fun executeOrder(foodOrder: FoodOrder?) {
         if (foodOrder != null && orders[foodOrder] != null) {
             var cooked = false
-            if (foodOrder.simpleFood is Coffee) {
-                Barista().doWork(foodOrder.number, foodOrder.simpleFood)
-                cooked = true
-            } else if (foodOrder.simpleFood is Pizza) {
-                PizzaMaker().doWork(foodOrder.number, foodOrder.simpleFood)
-                cooked = true
+            when (foodOrder.simpleFood) {
+                is Coffee -> {
+                    Barista().doWork(foodOrder.number, foodOrder.simpleFood)
+                    cooked = true
+                }
+                is Pizza -> {
+                    PizzaMaker().doWork(foodOrder.number, foodOrder.simpleFood)
+                    cooked = true
+                }
             }
             if (cooked) {
                 orders.remove(foodOrder)
