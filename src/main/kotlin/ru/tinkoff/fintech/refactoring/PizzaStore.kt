@@ -25,7 +25,7 @@ class PizzaStore {
 
     fun executeOrder(order: FoodOrder<SimpleFood>) {
         if (orders[order] == true) {
-            employees.find { it.canCook(order) }?.doWork(order)
+            employees.find { it.canCook(order) }?.cookFood(order)
             orders[order] = false;
         } else {
             error("Такого заказа нет в очереди")

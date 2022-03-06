@@ -6,5 +6,5 @@ import ru.tinkoff.fintech.refactoring.food.SimpleFood
 interface Employee<in T : SimpleFood> {
     fun canCook(order: FoodOrder<SimpleFood>): Boolean
 
-    fun doWork(order: FoodOrder<SimpleFood>)
+    fun cookFood(order: FoodOrder<SimpleFood>)
 }
