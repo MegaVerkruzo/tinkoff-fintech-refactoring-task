@@ -4,9 +4,8 @@ import ru.tinkoff.fintech.refactoring.food.Ingredient.*
 
 enum class Pizza(
     override val title: String,
-    override val ingredients: Map<Ingredient, Int>,
-    override val cookingTime: Int = 0
-) : CookedFood {
+    val ingredients: Map<Ingredient, Int>
+) : SimpleFood {
     Carbonara(
         "карбонара", mapOf(
             Egg to 1,

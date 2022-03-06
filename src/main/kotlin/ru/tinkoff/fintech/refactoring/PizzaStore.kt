@@ -2,13 +2,13 @@ package ru.tinkoff.fintech.refactoring
 
 import ru.tinkoff.fintech.refactoring.employee.*
 import ru.tinkoff.fintech.refactoring.food.Coffee
-import ru.tinkoff.fintech.refactoring.food.CookedFood
+import ru.tinkoff.fintech.refactoring.food.SimpleFood
 import ru.tinkoff.fintech.refactoring.food.Pizza
 
-class PizzaStore(
-    private var orderNumber: Int = 0,
+class PizzaStore {
+    private var orderNumber: Int = 0
     private val orders: MutableMap<FoodOrder, Boolean> = mutableMapOf()
-) {
+
     fun existsCoffee(name: String): Boolean =
         Coffee.values().find { coffee -> coffee.title == name } != null
 
@@ -30,14 +30,14 @@ class PizzaStore(
     }
 
     fun order(name: String): FoodOrder? {
-        val cookedFood: CookedFood = if (existsPizza(name)) {
+        val simpleFood: SimpleFood = if (existsPizza(name)) {
             pizza(name)
         } else if (existsCoffee(name)) {
             coffee(name)
         } else {
             error("Неизвестный вид еды!")
         }
-        val foodOrder = FoodOrder(++orderNumber, cookedFood)
+        val foodOrder = FoodOrder(++orderNumber, simpleFood)
         orders[foodOrder] = true
         return foodOrder
     }
@@ -45,11 +45,11 @@ class PizzaStore(
     fun executeOrder(foodOrder: FoodOrder?) {
         if (foodOrder != null && orders[foodOrder] != null) {
             var cooked = false
-            if (foodOrder.cookedFood is Coffee) {
-                Barista().doWork(foodOrder.number, foodOrder.cookedFood)
+            if (foodOrder.simpleFood is Coffee) {
+                Barista().doWork(foodOrder.number, foodOrder.simpleFood)
                 cooked = true
-            } else if (foodOrder.cookedFood is Pizza) {
-                PizzaMaker().doWork(foodOrder.number, foodOrder.cookedFood)
+            } else if (foodOrder.simpleFood is Pizza) {
+                PizzaMaker().doWork(foodOrder.number, foodOrder.simpleFood)
                 cooked = true
             }
             if (cooked) {
