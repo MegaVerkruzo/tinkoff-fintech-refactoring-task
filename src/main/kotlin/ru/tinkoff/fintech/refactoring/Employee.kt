@@ -1,7 +1,6 @@
-package ru.tinkoff.fintech.refactoring.employee
+package ru.tinkoff.fintech.refactoring
 
 import ru.tinkoff.fintech.refactoring.FoodOrder
-import ru.tinkoff.fintech.refactoring.food.SimpleFood
 
 interface Employee {
     fun canCook(order: FoodOrder): Boolean

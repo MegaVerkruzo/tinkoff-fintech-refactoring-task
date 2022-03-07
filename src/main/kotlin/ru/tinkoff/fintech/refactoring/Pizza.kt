@@ -1,6 +1,6 @@
-package ru.tinkoff.fintech.refactoring.food
+package ru.tinkoff.fintech.refactoring
 
-import ru.tinkoff.fintech.refactoring.food.Ingredient.*
+import ru.tinkoff.fintech.refactoring.Ingredient.*
 
 enum class Pizza(
     override val title: String,

@@ -1,7 +1,4 @@
-package ru.tinkoff.fintech.refactoring.employee
-
-import ru.tinkoff.fintech.refactoring.FoodOrder
-import ru.tinkoff.fintech.refactoring.food.Pizza
+package ru.tinkoff.fintech.refactoring
 
 class PizzaMaker : Employee {
     override fun cookFood(order: FoodOrder) {

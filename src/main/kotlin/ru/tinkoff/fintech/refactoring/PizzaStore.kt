@@ -1,10 +1,5 @@
 package ru.tinkoff.fintech.refactoring
 
-import ru.tinkoff.fintech.refactoring.employee.*
-import ru.tinkoff.fintech.refactoring.food.Coffee
-import ru.tinkoff.fintech.refactoring.food.Pizza
-import ru.tinkoff.fintech.refactoring.food.SimpleFood
-
 class PizzaStore(
     private val employees: Set<Employee> = setOf()
 ) {

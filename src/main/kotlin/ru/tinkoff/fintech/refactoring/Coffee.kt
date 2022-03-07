@@ -1,4 +1,4 @@
-package ru.tinkoff.fintech.refactoring.food
+package ru.tinkoff.fintech.refactoring
 
 enum class Coffee(
     override val title: String,
