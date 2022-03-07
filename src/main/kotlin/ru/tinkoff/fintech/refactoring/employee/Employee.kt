@@ -3,8 +3,8 @@ package ru.tinkoff.fintech.refactoring.employee
 import ru.tinkoff.fintech.refactoring.FoodOrder
 import ru.tinkoff.fintech.refactoring.food.SimpleFood
 
-interface Employee<in T : SimpleFood> {
-    fun canCook(order: FoodOrder<SimpleFood>): Boolean
+interface Employee {
+    fun canCook(order: FoodOrder): Boolean
 
-    fun cookFood(order: FoodOrder<SimpleFood>)
+    fun cookFood(order: FoodOrder)
 }

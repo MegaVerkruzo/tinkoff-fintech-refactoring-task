@@ -8,9 +8,9 @@ import ru.tinkoff.fintech.refactoring.food.SimpleFood
 class PizzaStore {
     private val employees = setOf(Barista(), PizzaMaker())
     private var orderNumber: Int = 0
-    private val orders: MutableMap<FoodOrder<SimpleFood>, Boolean> = mutableMapOf()
+    private val orders: MutableMap<FoodOrder, Boolean> = mutableMapOf()
 
-    fun order(name: String): FoodOrder<SimpleFood> {
+    fun order(name: String): FoodOrder {
         val food: SimpleFood? = Coffee.values().find { it.title == name } ?: Pizza.values().find { it.title == name }
         if (food != null) {
             val order = FoodOrder(++orderNumber, food)
@@ -23,7 +23,7 @@ class PizzaStore {
         error("Неизвестный тип еды!")
     }
 
-    fun executeOrder(order: FoodOrder<SimpleFood>) {
+    fun executeOrder(order: FoodOrder) {
         if (orders[order] == true) {
             employees.find { it.canCook(order) }?.cookFood(order)
             orders[order] = false;

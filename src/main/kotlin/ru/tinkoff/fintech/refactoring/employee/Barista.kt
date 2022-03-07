@@ -4,8 +4,8 @@ import ru.tinkoff.fintech.refactoring.FoodOrder
 import ru.tinkoff.fintech.refactoring.food.Coffee
 import ru.tinkoff.fintech.refactoring.food.SimpleFood
 
-class Barista : Employee<Coffee> {
-    override fun cookFood(order: FoodOrder<SimpleFood>) {
+class Barista : Employee {
+    override fun cookFood(order: FoodOrder) {
         if (order.food is Coffee) {
             val orderId = order.orderId
             val food = order.food
@@ -20,7 +20,7 @@ class Barista : Employee<Coffee> {
         }
     }
 
-    override fun canCook(order: FoodOrder<SimpleFood>): Boolean {
+    override fun canCook(order: FoodOrder): Boolean {
         return order.food is Coffee
     }
 }
