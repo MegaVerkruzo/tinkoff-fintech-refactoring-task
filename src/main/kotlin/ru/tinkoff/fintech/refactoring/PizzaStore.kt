@@ -12,8 +12,9 @@ class PizzaStore(
     private val orders: MutableMap<FoodOrder, Boolean> = mutableMapOf()
 
     fun order(name: String): FoodOrder {
-        val food: SimpleFood = Coffee.values().find { it.title == name } ?: Pizza.values().find { it.title == name }
-        ?: error("Неизвестный тип еды!")
+        val food: SimpleFood = Coffee.values().find { it.title == name }
+            ?: Pizza.values().find { it.title == name }
+            ?: error("Нет такого блюда в меню")
 
         val order = FoodOrder(++orderNumber, food)
         if (employees.find { it.canCook(order) } == null)
