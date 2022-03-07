@@ -2,12 +2,11 @@ package ru.tinkoff.fintech.refactoring.employee
 
 import ru.tinkoff.fintech.refactoring.FoodOrder
 import ru.tinkoff.fintech.refactoring.food.Pizza
-import ru.tinkoff.fintech.refactoring.food.SimpleFood
 
 class PizzaMaker : Employee {
     override fun cookFood(order: FoodOrder) {
         if (order.food is Pizza) {
-            val orderId = order.orderId
+            val orderId = order.id
             val food = order.food
             println("[Пицца мейкер] Делаю пиццу: ${food.title}")
             println("[Пицца мейкер] Из ингридиетов:")

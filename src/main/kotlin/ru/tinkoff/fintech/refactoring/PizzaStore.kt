@@ -5,8 +5,9 @@ import ru.tinkoff.fintech.refactoring.food.Coffee
 import ru.tinkoff.fintech.refactoring.food.Pizza
 import ru.tinkoff.fintech.refactoring.food.SimpleFood
 
-class PizzaStore {
-    private val employees = setOf(Barista(), PizzaMaker())
+class PizzaStore (
+    private val employees: Set<Employee> = setOf()
+) {
     private var orderNumber: Int = 0
     private val orders: MutableMap<FoodOrder, Boolean> = mutableMapOf()
 

@@ -5,7 +5,7 @@ import ru.tinkoff.fintech.refactoring.food.Pizza
 import ru.tinkoff.fintech.refactoring.food.SimpleFood
 
 fun main() {
-    val pizzaStore = PizzaStore()
+    val pizzaStore = PizzaStore(setOf(Barista(), PizzaMaker()))
     val pizzaOrder = pizzaStore.order("карбонара")
     val coffeeOrder = pizzaStore.order("эспрессо")
     pizzaStore.executeOrder(pizzaOrder)
