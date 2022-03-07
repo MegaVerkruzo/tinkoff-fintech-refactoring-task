@@ -1,10 +1,10 @@
 package ru.tinkoff.fintech.refactoring
 
 class PizzaStore(
-    private val employees: Set<Employee> = setOf()
+    private val employees: Set<Employee>
 ) {
     private var orderNumber: Int = 0
-    private val orders: MutableMap<FoodOrder, Boolean> = mutableMapOf()
+    private val orders: MutableSet<FoodOrder> = mutableSetOf()
 
     fun order(name: String): FoodOrder {
         val food: SimpleFood = Coffee.values().find { it.title == name }
@@ -12,17 +12,21 @@ class PizzaStore(
             ?: error("Нет такого блюда в меню")
 
         val order = FoodOrder(++orderNumber, food)
-        if (employees.find { it.canCook(order) } == null)
+        if (employees.none { it.canCook(order) })
             error("Нет подходящего сотрудника для выполнения этой действия")
-
-        orders[order] = true
+        
+        orders.add(order)
         return order
     }
 
     fun executeOrder(order: FoodOrder) {
-        if (orders[order] != true) error("Такого заказа нет в очереди")
+        if (!orders.contains(order))
+            error("Такого заказа нет в очереди")
+
+        if (employees.none { it.canCook(order) })
+            error("Нет подходящего сотрудника для выполнения этой действия")
 
         employees.find { it.canCook(order) }?.cookFood(order)
-        orders[order] = false;
+        orders.remove(order)
     }
 }
