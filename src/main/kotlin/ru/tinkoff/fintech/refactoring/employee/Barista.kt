@@ -10,7 +10,7 @@ class Barista : Employee {
         val orderId = order.id
         val food = order.food
         println("[Бариста] Готовлю напиток: ${food.title}")
-        println("[Бариста] Время приготовления: ${food.cookingTime} минут")
+        println("[Бариста] Время приготовления: ${food.brewTime} минут")
         val roundedPrice = "%.2f".format(food.price)
         println("[Бариста] Стоимость напитка: $roundedPrice")
 

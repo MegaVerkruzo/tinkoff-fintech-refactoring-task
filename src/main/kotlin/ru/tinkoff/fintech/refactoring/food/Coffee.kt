@@ -2,7 +2,7 @@ package ru.tinkoff.fintech.refactoring.food
 
 enum class Coffee(
     override val title: String,
-    val cookingTime: Int,
+    val brewTime: Int,
     override val price: Double
 ) : SimpleFood {
     Espresso("эспрессо", 5, 5.0),
