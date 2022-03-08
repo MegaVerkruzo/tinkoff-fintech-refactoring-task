@@ -1,16 +1,52 @@
 package ru.tinkoff.fintech.refactoring
 
-data class Pizza(
-    val name: String,
-)
+import ru.tinkoff.fintech.refactoring.Ingredient.*
 
-fun getIngredient(pizza: Pizza): List<Pair<String, Int>> {
-    return when (pizza.name) {
-        "карбонара" -> listOf("яйца" to 1, "бекон" to 2, "тесто" to 1, "сыр" to 2)
-        "маринара" -> listOf("томат" to 2, "оливки" to 3, "тесто" to 1)
-        "сардиния" -> listOf("салями" to 3, "оливки" to 1, "тесто" to 1, "сыр" to 3)
-        "вальтеллина" -> listOf("вяленая говядина" to 1, "зелень" to 1, "тесто" to 1, "пармезан" to 2)
-        "крестьянская" -> listOf("грибы" to 3, "томат" to 1, "тесто" to 1, "спаржа" to 1, "мясное ассорти" to 1)
-        else -> emptyList()
-    }
+enum class Pizza(
+    override val title: String,
+    val ingredients: Map<Ingredient, Int>
+) : SimpleFood {
+    Carbonara(
+        "карбонара", mapOf(
+            Egg to 1,
+            Bacon to 2,
+            Dough to 1,
+            Cheese to 2
+        )
+    ),
+    Marinara(
+        "маринара", mapOf(
+            Tomato to 2,
+            Olives to 3,
+            Dough to 1
+        )
+    ),
+    Sardinia(
+        "сардиния", mapOf(
+            Salami to 3,
+            Olives to 1,
+            Dough to 1,
+            Cheese to 3
+        )
+    ),
+    Valtellina(
+        "вальтеллина", mapOf(
+            BeefJerky to 1,
+            Greenery to 1,
+            Dough to 1,
+            Parmesan to 2
+        )
+    ),
+    Peasant(
+        "крестьянская", mapOf(
+            Mushrooms to 3,
+            Tomato to 1,
+            Dough to 1,
+            Asparagus to 1,
+            ColdCuts to 1
+        )
+    );
+
+    override val price: Double
+        get() = ingredients.toList().sumOf { (ingredient, amount) -> ingredient.price * amount }
 }
